@@ -4,6 +4,9 @@ jobs:
     docker:
       - image: ruby:1.9.3
 
+    environment:
+      BEACON_API_ENDPOINT: alerts
+      
     working_directory: ~/repo
 
     steps:
