@@ -44,9 +44,9 @@ jobs:
             - vendor/bundle
       - run: bundle exec rake test
 
-  workflows:
-    version: 2
-    build:
-      jobs:
-        - build19
-        - build24
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build19
+      - build24
