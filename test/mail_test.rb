@@ -51,6 +51,7 @@ module AppOptics::Services
       errors = {}
       assert(!svc.receive_validate(errors))
       assert_equal(1, errors.length)
+      assert(errors[:addresses])
     end
 
     def test_new_alerts
