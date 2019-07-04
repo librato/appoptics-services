@@ -1,20 +1,16 @@
-require 'active_support/all'
-
 module AppOptics
   module Services
     class Numbers
-      extend ActiveSupport::NumberHelper
-
       def self.format_for_threshold(threshold, number, tolerance=2)
         threshold_decimals = number_decimal_places(threshold)
         number_decimals = number_decimal_places(number)
 
         if !threshold_decimals || !number_decimals
-          return number_to_delimited(number)
+          return number
         end
 
         if (number_decimals - tolerance) <= threshold_decimals
-          return number_to_delimited(number)
+          return number
         end
 
         # here we have more decimals in the number than the threshold
@@ -22,7 +18,7 @@ module AppOptics
         # threshold: 3.14
 
         factor = (10**(threshold_decimals+tolerance)).to_f
-        number_to_delimited((number * factor).truncate / factor)
+        (number * factor).truncate / factor
       end
 
       def self.number_decimal_places(number)

@@ -8,18 +8,16 @@ class NumbersTest < Test::Unit::TestCase
   end
 
   def test_does_not_change
-    assert format(10, 10.53) == "10.53"
-    assert format(10.53, 10.53) == "10.53"
+    assert format(10, 10.53) == 10.53
+    assert format(10.53, 10.53) == 10.53
   end
 
   def test_changes
-    assert_equal "10.5312", format(10.53, 10.5312345)
-    assert_equal "10.53", format(10, 10.5312345)
-    assert_equal "0.53", format(0, 0.5312345)
-    assert_equal "0.5312", format(0.12, 0.5312345)
-    assert_equal "100", format(10, 100)
-    assert_equal "12,345,678", format(10, 12345678)
-    assert_equal "12,345,678.0", format(10, 12345678.0)
+    assert_equal 10.5312, format(10.53, 10.5312345)
+    assert_equal 10.53, format(10, 10.5312345)
+    assert_equal 0.53, format(0, 0.5312345)
+    assert_equal 0.5312, format(0.12, 0.5312345)
+    assert_equal 100, format(10, 100)
   end
 
 

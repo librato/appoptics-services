@@ -7,6 +7,7 @@ require 'digest'
 module AppOptics::Services
   class Service::Slack < AppOptics::Services::Service
     VERTICAL_LINE_COLOR = "#0880ad"
+    SERVICE_NAME = "slack"
 
     def receive_validate(errors = {})
       if settings[:url].blank?
@@ -70,7 +71,7 @@ module AppOptics::Services
             {
               :title => source,
               :value => measurements.inject([]) do |texts, measurement|
-                texts << data.format_measurement(measurement)
+                texts << data.format_measurement(measurement, nil, SERVICE_NAME)
               end.join("\n")
             }
           end,
