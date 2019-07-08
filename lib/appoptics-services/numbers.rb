@@ -31,4 +31,3 @@ module AppOptics
     end
   end
 end
-

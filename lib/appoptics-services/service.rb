@@ -179,5 +179,3 @@ end
 Dir[File.join(File.dirname(__FILE__), '../../services/*.rb')].each { |service|
   load service
 }
-
-

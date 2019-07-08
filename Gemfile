@@ -4,7 +4,7 @@ gem 'faraday', '~> 0.9'
 gem 'tilt',  '~> 2'
 
 gem 'yajl-ruby', '~> 1.3.1', :require => [ 'yajl', 'yajl/json_gem' ]
-gem 'activesupport', '>= 3.2', :require => 'active_support'
+gem 'activesupport', '~> 4.1.11', :require => 'active_support'
 
 # service: mail
 gem 'mail', '~> 2.2'

@@ -1,5 +1,6 @@
 require 'redcarpet'
 require 'active_support/core_ext/string/filters.rb'
+require 'active_support/number_helper.rb'
 
 require_relative 'helpers/alert_helpers'
 require_relative 'numbers'
@@ -11,6 +12,7 @@ module AppOptics
   module Services
     class Output
       include Helpers::AlertHelpers
+      include ActiveSupport::NumberHelper
 
       attr_reader :violations, :conditions, :alert, :clear, :trigger_time, :alert_url
       def initialize(payload, add_test_notice=true)
@@ -102,7 +104,7 @@ module AppOptics
         lines.join("\n")
       end
 
-      def format_measurement(measurement, source = nil)
+      def format_measurement(measurement, source = nil, service = nil)
         condition = @conditions[measurement[:condition_violated]]
         if source
           metric = "`#{measurement[:metric]}` from `#{source}`"
@@ -110,17 +112,20 @@ module AppOptics
           metric = "`#{measurement[:metric]}`"
         end
         violation_time = measurement[:end] || measurement[:recorded_at]
-        "metric #{metric} was #{format_violation_type(condition, measurement)} recorded at #{format_time(violation_time)}"
+        "metric #{metric} was #{format_violation_type(condition, measurement, service)} recorded at #{format_time(violation_time)}"
       end
 
-      def format_violation_type(condition, measurement)
+      def format_violation_type(condition, measurement, service)
         if condition[:type] == "absent"
           "absent for #{condition[:duration]} seconds"
         else
           threshold_value = condition[:threshold]
           actual_value = measurement[:value]
           formatted_value = AppOptics::Services::Numbers.format_for_threshold(threshold_value, actual_value)
-          "#{condition[:type]} threshold #{threshold(condition,measurement)} with value #{formatted_value}"
+          if service == AppOptics::Services::Service::Slack::SERVICE_NAME
+            formatted_value = number_to_delimited(formatted_value)
+          end
+          "#{condition[:type]} threshold #{threshold(condition, measurement, service)} with value #{formatted_value}"
         end
       end
 
@@ -130,8 +135,14 @@ module AppOptics
           strftime("%a, %b %e %Y at %H:%M:%S UTC")
       end
 
-      def threshold(condition, measurement)
-        thresh_str = condition[:threshold].to_s
+      def threshold(condition, measurement, service)
+        thresh_str = nil
+        threshold = condition[:threshold]
+        if service == AppOptics::Services::Service::Slack::SERVICE_NAME
+          thresh_str = number_to_delimited(threshold)
+        else
+          thresh_str = threshold.to_s
+        end
         duration = calculate_duration(measurement)
         if duration
           thresh_str += " over #{duration} seconds"
