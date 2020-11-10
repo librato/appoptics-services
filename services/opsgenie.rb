@@ -76,14 +76,6 @@ module AppOptics::Services
       log("Connection failed for url: #{url} for payload: #{payload.inspect}")
     end
 
-    def log(msg)
-      if defined?(Rails)
-        Rails.logger.info(msg)
-      else
-        puts(msg)
-      end
-    end
-
     def url
       begin
         uri = URI.parse("https://api.opsgenie.com/v1/json/integrations/webhooks/appoptics")

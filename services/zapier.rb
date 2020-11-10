@@ -62,9 +62,5 @@ module AppOptics::Services
     def present?(str)
       str && !str.empty?
     end
-
-    def log(msg)
-      Rails.logger.info(msg) if defined?(Rails)
-    end
   end
 end

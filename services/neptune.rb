@@ -71,13 +71,5 @@ module AppOptics::Services
         log("Connection failed for url: #{url} for payload: #{payload.inspect}")
       end
     end
-
-    def log(msg)
-      if defined?(Rails)
-        Rails.logger.info(msg)
-      else
-        puts(msg)
-      end
-    end
   end
 end

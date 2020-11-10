@@ -106,7 +106,7 @@ module AppOptics::Services
     def sns
       @sns ||=
         Aws::SNS::Client.new(
-                             credentials: Aws::Credentials.new(settings[:access_key_id], settings[:secret_access_key]),
+                             credentials: Aws::Credentials.new(settings[:access_key_id], settings[:secret_access_key], settings[:session_token]),
                              region: region)
     end
 
