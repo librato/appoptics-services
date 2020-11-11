@@ -85,13 +85,5 @@ module AppOptics::Services
     rescue Faraday::Error::ConnectionFailed
       log("Connection failed for url: #{url} for payload: #{payload.inspect}")
     end
-
-    def log(msg)
-      if defined?(Rails)
-        Rails.logger.info(msg)
-      else
-        puts(msg)
-      end
-    end
   end
 end

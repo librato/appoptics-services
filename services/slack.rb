@@ -149,10 +149,6 @@ module AppOptics::Services
       raise_url_error
     end
 
-    def log(msg)
-      Rails.logger.info(msg) if defined?(Rails)
-    end
-
     private
 
     # Turns `method=get,service=addon-api` into `method=get, service=addon-api`

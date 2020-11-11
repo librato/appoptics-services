@@ -75,14 +75,6 @@ module AppOptics::Services
         'Content-Type'  => 'application/json'}
     end
 
-    def log(msg)
-      if defined?(Rails)
-        Rails.logger.info(msg)
-      else
-        puts(msg)
-      end
-    end
-
     def present?(str)
       str && !str.empty?
     end

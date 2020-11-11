@@ -163,6 +163,14 @@ module AppOptics
         raise ServiceError, msg
       end
 
+      def log(msg)
+        if defined?(Rails)
+          Rails.logger.info(msg)
+        else
+          puts(msg)
+        end
+      end
+
       # Gets the path to the SSL Certificate Authority certs.  These were taken
       # from: http://curl.haxx.se/ca/cacert.pem
       #def ca_file
@@ -179,5 +187,3 @@ end
 Dir[File.join(File.dirname(__FILE__), '../../services/*.rb')].each { |service|
   load service
 }
-
-
