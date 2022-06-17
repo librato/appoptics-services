@@ -22,6 +22,7 @@ GEM
     aws-sigv4 (1.2.2)
       aws-eventstream (~> 1, >= 1.0.2)
     builder (3.2.2)
+    concurrent-ruby (1.1.10)
     descendants_tracker (0.0.3)
     diff-lcs (1.2.5)
     eventmachine (1.2.5)
@@ -49,7 +50,8 @@ GEM
     httparty (0.12.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
-    i18n (0.6.5)
+    i18n (0.9.5)
+      concurrent-ruby (~> 1.0)
     jeweler (2.1.2)
       builder
       bundler (>= 1.0)
